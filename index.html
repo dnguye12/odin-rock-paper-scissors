@@ -5,4 +5,56 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
+    <body>
+
+    </body>
+    
 </html>
+<script>
+    function getComputerChoice(){
+        let n = Math.floor(Math.random() * 3);
+        if(n == 0) {
+            return "rock";
+        }else if(n == 1) {
+            return "paper";
+        }else {
+            return "scissors";
+        }
+    }
+
+    function playRound(pS, cS ) {
+        if(pS == cS) {
+            return "It's a tie!";
+        }
+        if((pS == "rock" && cS == "paper") || (pS == "paper" && cS == "scissors") || (pS == "scissors" && cS == "rock")) {
+return `You lose! ${cS} beats ${pS}`;
+        }else {
+            return `You win! ${pS} beats ${cS}`;
+        }
+    }
+
+    function play() {
+        let pS = 0;
+        let cS = 0;
+        while(pS < 5 || cS < 5) {
+            if(pS == 5) {
+                console.log("You won");
+                break;
+            }
+            if(cS == 5) {
+                console.log("The computer won");
+                break;
+            }
+            let userInput = prompt("Enter your choice: Rock, Paper, Scissors").toLowerCase();
+            let res = playRound(userInput, getComputerChoice());
+            console.log(res);
+            if(res.includes("lose")) {
+                cS++;
+            }else if(res.includes("win")) {
+                pS++;
+            }
+        }
+    }
+
+    play();
+</script>
