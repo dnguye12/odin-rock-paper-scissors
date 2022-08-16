@@ -1,70 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Odin Project - Rock Paper Scissors</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <body>
-      <div id="container">
-        <button type="button" id="rock">Rock</button>
-        <button type="button" id="paper">Paper</button>
-        <button type="button" id="sci">Scissors</button>
-      </div>
-      </body>
-    
+
+<head>
+    <title>Odin Project - Rock Paper Scissors</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>ROCK PAPER SCISSORS</h1>
+    </header>
+    <main>
+        <h2>Choose your weapon</h2>
+        <h3>First to score 5 points wins the game</h3>
+        <div class="score">
+            <div>
+                <h4 id="pChoice">❔</h4>
+                <p id="pScore">Player: 0</p>
+            </div>
+            <div>
+                <h4 id="cChoice">❔</h4>
+                <p id="cScore">Computer: 0</p>
+            </div>
+        </div>
+        <div id="container">
+            <button type="button" id="rock">✊</button>
+            <button type="button" id="paper">✋</button>
+            <button type="button" id="sci">✌</button>
+        </div>
+    </main>
+</body>
+
 </html>
 <script>
-  let con = document.getElementById("container");
-  const buttons = document.querySelectorAll("button");
-
-  let pC = "";
-
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-        pC = button.textContent.toLowerCase();
-        play();
-    });
-  });
-  function getComputerChoice(){
-      let n = Math.floor(Math.random() * 3);
-      if(n == 0) {
-          return "rock";
-      }else if(n == 1) {
-          return "paper";
-      }else {
-          return "scissors";
-      }
-  }
-
-  function playRound(pS, cS ) {
-      if(pS == cS) {
-          return "It's a tie!";
-      }
-      if((pS == "rock" && cS == "paper") || (pS == "paper" && cS == "scissors") || (pS == "scissors" && cS == "rock")) {
-return `You lose! ${cS} beats ${pS}`;
-      }else {
-          return `You win! ${pS} beats ${cS}`;
-      }
-  }
-  let pS = 0;
-  let cS = 0;
-  function play() {
-      
-          if(pS == 5) {
-              console.log("You won");
-          }
-          else if(cS == 5) {
-              console.log("The computer won");
-          }else {
-          let res = playRound(pC, getComputerChoice());
-          console.log(res);
-          if(res.includes("lose")) {
-              cS++;
-          }else if(res.includes("win")) {
-              pS++;
-          }
-        }
-      
-  }
+    let playerScore  = 0;
 </script>
