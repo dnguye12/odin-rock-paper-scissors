@@ -31,9 +31,120 @@
             <button type="button" id="sci">✌</button>
         </div>
     </main>
+    <div id="overlay" class=""></div>
+    <div id="endPop" class="">
+        <p id="endMsg"></p>
+        <button id="restartBtn">Play again</button>
+    </div>
 </body>
 
 </html>
 <script>
-    let playerScore  = 0;
+    let playerScore = 0;
+    let comScore = 0;
+
+    let pChoice = document.getElementById("pChoice");
+    let pScore = document.getElementById("pScore");
+
+    let cScore = document.getElementById("cScore");
+    let cChoice = document.getElementById("cChoice");
+    function getComChoice() {
+        let n = Math.floor(Math.random() * 3);
+        if(n == 0) {
+            return "✊";
+        }
+        if(n == 1) {
+            return "✋";
+        }
+        return "✌";
+    }
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            let playerChoice = btn.textContent;
+            playRound(playerChoice);
+        })
+    });
+
+    let res = document.querySelector("h2");
+    let unres = document.querySelector("h3");
+
+    function toStringPlayer(choice) {
+        if(choice == "✊") {
+            return "Rock";
+        }
+        if(choice == "✋") {
+            return "Paper";
+        }
+        if(choice == "✌") {
+            return "Scissors";
+        }
+    }
+
+    function toStringCom(choice) {
+        if(choice == "✊") {
+            return "rock";
+        }
+        if(choice == "✋") {
+            return "paper";
+        }
+        if(choice == "✌") {
+            return "scissors";
+        }
+    }
+
+    function endGame() {
+        let overlay = document.getElementById("overlay");
+        let endPop = document.getElementById("endPop");
+        let endMsg = document.getElementById("endMsg");
+
+        overlay.classList.add("active");
+        endPop.classList.add("active");
+        if(playerScore >= 5) {
+            endMsg.textContent = "You won!";
+        }
+        if(comScore >= 5) {
+            endMsg.textContent ="You lost!";
+        }
+
+        let restartBtn = document.getElementById("restartBtn");
+        restartBtn.addEventListener("click", function() {
+            playerScore = 0;
+            comScore = 0;
+            overlay.classList.remove("active");
+            endPop.classList.remove("active");
+            endMsg.textContent = "";
+            pChoice.textContent =  "❔";
+            cChoice.textContent = "❔";
+            pScore.textContent = "Player: 0";
+            cScore.textContent = "Computer: 0";
+            res.textContent = "Choose your weapon";
+            unres.textContent = "First to score 5 points wins the game";
+        });
+    }
+
+    function playRound(playerChoice) {
+        let comChoice = getComChoice();
+        pChoice.textContent = playerChoice;
+        cChoice.textContent = comChoice;
+        if(playerChoice == comChoice) {
+            res.textContent = "It's a tie!";
+            unres.textContent = toStringPlayer(playerChoice) + " ties with " + toStringCom(comChoice);
+        }
+        else if((playerChoice == "✊" && comChoice == "✋")||(playerChoice == "✌" && comChoice == "✊")||(playerChoice == "✋" && comChoice == "✌")) {
+            res.textContent = "You lost!";
+            unres.textContent = toStringPlayer(playerChoice) + " is beaten by " + toStringCom(comChoice);
+            comScore++;
+        }else {
+            res.textContent = "You won!";
+            unres.textContent = toStringPlayer(playerChoice) + " beats " + toStringCom(comChoice);
+            playerScore++;
+        }
+        pScore.textContent = "Player: " + playerScore;
+        cScore.textContent = "Computer: " + comScore;
+
+        if(playerScore >= 5 || comScore >= 5) {
+            endGame();
+        }
+    }
 </script>

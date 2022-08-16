@@ -62,3 +62,40 @@ button:hover {
 button:active {
     background-color: #5b5f68;
 }
+
+#overlay {
+    background-color: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+#endPop #endMsg {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#overlay.active, #endPop.active {
+    display: block;
+}
+
+#endPop {
+    display: none;
+position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #222831;
+  padding: 10px 10% 35px 10%;
+  border-radius: 10px;
+}
+
+#endPop #restartBtn{
+    color: white;
+    padding: 20px 30px;
+    margin: 0;
+    font-size: 24px;
+}
